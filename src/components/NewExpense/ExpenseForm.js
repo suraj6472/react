@@ -21,7 +21,7 @@ function ExpenseForm(props) {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount, // enforcing the amount to get converted into integer instead string
       date: new Date(enteredDate),
     };
 
