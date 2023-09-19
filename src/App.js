@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from "react";
 
-import AddUser from './components/Users/AddUser';
-import UsersList from './components/Users/UsersList';
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
 
 function App() {
   const [usersList, setUsersList] = useState([]);
@@ -16,10 +16,23 @@ function App() {
   };
 
   return (
-    <div>
+    // this <> </> may not work in some project depending on project setup
+    // <>
+    //   <AddUser onAddUser={addUserHandler} />
+    //   <UsersList users={usersList} />
+    // </>
+
+    // this <React.Fragment> will always work
+    // <React.Fragment>
+    //   <AddUser onAddUser={addUserHandler} />
+    //   <UsersList users={usersList} />
+    // </React.Fragment>
+
+    // // this <Fragment> is same as <React.Fragment>. we can use it if import Fragment explicitly
+    <Fragment>
       <AddUser onAddUser={addUserHandler} />
       <UsersList users={usersList} />
-    </div>
+    </Fragment>
   );
 }
 
