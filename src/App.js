@@ -1,40 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import UserInput from "./components/UserInput/UserInput";
 import Header from "./components/Header/Header";
 import ResultsTable from "./components/ResultsTable/ResultsTable";
 
 function App() {
+  // approach 1
+  // const [result, setResult] = useState(null);
+  // const calculateHandler = (userInput) => {
+  //   const yearlyData = [];
+  //   let currentSavings = +userInput["current-savings"];
+  //   const yearlyContribution = +userInput["yearly-contribution"];
+  //   const expectedReturn = +userInput["expected-return"] / 100;
+  //   const duration = +userInput["duration"];
+  //   for (let i = 0; i < duration; i++) {
+  //     const yearlyInterest = currentSavings * expectedReturn;
+  //     currentSavings += yearlyInterest + yearlyContribution;
+  //     yearlyData.push({
+  //       year: i + 1,
+  //       yearlyInterest: yearlyInterest,
+  //       savingsEndOfYear: currentSavings,
+  //       yearlyContribution: yearlyContribution,
+  //     });
+  //   }
+
+  //   setResult(result);
+  // };
+
+  // approach 2 - drived state
+  const [userInput, setUserInput] = useState(null);
   const calculateHandler = (userInput) => {
-    // Should be triggered when form is submitted
-    // You might not directly want to bind it to the submit event on the form though...
+    setUserInput(userInput);
+  };
 
-    const yearlyData = []; // per-year results
-
-    let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
+  const result = [];
+  if (userInput) {
+    let currentSavings = +userInput["current-savings"];
+    const yearlyContribution = +userInput["yearly-contribution"];
     const expectedReturn = +userInput["expected-return"] / 100;
     const duration = +userInput["duration"];
-
-    // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
       currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
+      result.push({
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
       });
     }
-
-  };
+  }
 
   return (
     <div>
       <Header />
-      <UserInput />
-      <ResultsTable />
+      <UserInput onCalculate={calculateHandler} />
+      <ResultsTable/>
     </div>
   );
 }
