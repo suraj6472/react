@@ -28,6 +28,9 @@ const AddUser = (props) => {
       return;
     }
     props.onAddUser(enteredUser, enteredUserAge);
+    // Note using ref to manupulate user input in th component makes this
+    // component uncontrolled component as the input values in not being controlled by react
+    // but from dom element
     nameInputEle.current.value = "";
     ageinputEle.current.value = "";
   };
