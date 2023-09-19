@@ -21,7 +21,7 @@ const UserInput = (props) => {
 
   const inputChangeHandler = (input, value) => {
     setUserInput((prevState) => {
-      return { ...prevState, [input]: value };
+      return { ...prevState, [input]: +value };
     });
   };
   return (
