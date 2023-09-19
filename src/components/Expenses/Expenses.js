@@ -5,36 +5,20 @@ import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
 
 const Expense = ({ expenses }) => {
-  const [filteredYear, setFilteredYear] = useState("2020");
+  const [selectedValue, setSelectedValue] = useState("2021");
 
-  // as this filterInfoText is dependent on filteredYear.
-  // we can handle the filterInfoText value based on filteredYear value
-  // as whole component re-executed when state changes so this will
-  // automatically be evalucated.
-  // NOTE that take out the logic outside of the handler.
-  
-  let filterInfoText = "2019, 2021 & 2022";
-  if (filteredYear == 2019) {
-    filterInfoText = "2020, 2021 & 2022";
-  } else if (filteredYear == 2021) {
-    filterInfoText = "2019, 2020 & 2022";
-  } else if (filteredYear == 2022) {
-    filterInfoText = "2019, 2021 & 2020";
-  }
-
-  const filterSelectHandler = (filterValue) => {
-    setFilteredYear(filterValue);
+  const filterSelectHandler = (fiterValue) => {
+    setSelectedValue(fiterValue);
   };
 
   return (
     <Card className="expenses">
       <div>
         <ExpensesFilter
-          filteredYear={filteredYear}
+          selectedValue={selectedValue}
           onChangeYear={filterSelectHandler}
         />
       </div>
-      <p>Data for year {filterInfoText} are hidden</p>
       <ExpenseItem
         title={expenses[0].title}
         amount={expenses[0].amount}
