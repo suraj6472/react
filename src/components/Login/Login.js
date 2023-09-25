@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, {useEffect, useState, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -56,34 +56,31 @@ const Login = (props) => {
     value: "",
     isValid: null,
   });
-  // useEffect(() => {
 
-  //   // we doing this settimeout implementation to avoid input check for all key strokes
-  //   // instead we check input once user pause while entering input
-  //   const identifier = setTimeout(() => {
-  //     console.log('validating')
-  //     setFormIsValid(
-  //       enteredPassword.trim().length > 6 && enteredEmail.includes('@')
-  //     );
-  //   }, 500)
+  const { isValid: emailIsValid }  = emailState // this 'emailIsValid' is an alias for this isValid variable. this a syntax for destructring
 
-  //   //NOTE: this return ClEAN UP function executes before executing the settimeout function
-  //   return () => {
-  //     console.log("CLEAN UP")
-  //     clearTimeout(identifier)
-  //   }
+  const { isValid: passwordIsValid }  = passwordState
 
-  // }, [enteredEmail, enteredPassword]);
+
+  // previously the handler functions donot grantee that the other parameter state is latest one.
+  // in this senerio, useeffect is useful as React grantees that it received the latest state for execution
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("validating");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+    return () => {
+      console.log("CLEAN UP");
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
-    // setEnteredEmail(event.target.value);
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
-    setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: "USER_INPUT", val: event.target.value });
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
