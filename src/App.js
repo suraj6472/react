@@ -30,9 +30,9 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{isLoggedIn: isLoggedIn }}> 
+    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, onLogout: logoutHandler }}> 
     {/* this "Provider" is a component here| value is inbuild props. it is used to provide value to consumer. consumer don't get value from store */}
-      <MainHeader onLogout={logoutHandler} />
+      <MainHeader />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
