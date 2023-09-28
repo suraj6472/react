@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useReducer, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useReducer,
+  useContext,
+  useRef,
+} from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -93,6 +99,9 @@ const Login = (props) => {
 
   const { isValid: passwordIsValid } = passwordState;
 
+  const emailInput = useRef();
+  const passwordInput = useRef();
+
   // previously the handler functions donot grantee that the other parameter state is latest one.
   // in this senerio, useeffect is useful as React grantees that it received the latest state for execution
   useEffect(() => {
@@ -124,13 +133,20 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    authCTX.onLogin(emailState.value, passwordState.value);
+    if (formIsValid) {
+      authCTX.onLogin(emailState.value, passwordState.value);
+    } else if (!emailIsValid) {
+      emailInput.current.focus();
+    } else {
+      passwordInput.current.focus();
+    }
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
+          ref={emailInput}
           id="email"
           type="email"
           label="E-mail"
@@ -144,6 +160,7 @@ const Login = (props) => {
           }`}
         >
           <Input
+            ref={passwordInput}
             type="password"
             id="password"
             label="Password"
@@ -153,7 +170,7 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn}>
             Login
           </Button>
         </div>
