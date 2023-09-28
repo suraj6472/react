@@ -1,8 +1,9 @@
-import React, {useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../../store/auth-context";
 
 // In the previous lecture, we used object destructuring to add object properties as dependencies to useEffect().
 
@@ -10,10 +11,10 @@ import Button from "../UI/Button/Button";
 // useEffect(() => {
 //   // code that only uses someProperty ...
 // }, [someProperty]);
-// This is a very common pattern and approach, which is why I typically use it 
+// This is a very common pattern and approach, which is why I typically use it
 //and why I show it here (I will keep on using it throughout the course).
 
-// I just want to point out, that they key thing is NOT that we use destructuring but 
+// I just want to point out, that they key thing is NOT that we use destructuring but
 //that we pass specific properties instead of the entire object as a dependency.
 
 // We could also write this code and it would work in the same way.
@@ -30,7 +31,7 @@ import Button from "../UI/Button/Button";
 // }, [someObject]);
 // Why?
 
-// Because now the effect function would re-run whenever ANY property of someObject changes 
+// Because now the effect function would re-run whenever ANY property of someObject changes
 //- not just the one property (someProperty in the above example) our effect might depend on.
 
 const emailReducer = (state, action) => {
@@ -74,6 +75,7 @@ const passwordReducer = (state, action) => {
 };
 
 const Login = (props) => {
+  const authCTX = useContext(AuthContext);
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -86,10 +88,9 @@ const Login = (props) => {
     isValid: null,
   });
 
-  const { isValid: emailIsValid }  = emailState // this 'emailIsValid' is an alias for this isValid variable. this a syntax for destructring
+  const { isValid: emailIsValid } = emailState; // this 'emailIsValid' is an alias for this isValid variable. this a syntax for destructring
 
-  const { isValid: passwordIsValid }  = passwordState
-
+  const { isValid: passwordIsValid } = passwordState;
 
   // previously the handler functions donot grantee that the other parameter state is latest one.
   // in this senerio, useeffect is useful as React grantees that it received the latest state for execution
@@ -122,7 +123,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCTX.onLogin(emailState.value, passwordState.value);
   };
 
   return (
