@@ -7,11 +7,11 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext)
 
   const addActionHandler = (item) => {
-
+    cartCtx.addItem({...item, amount: 1})
   }
 
   const removeActionHandler = (id) => {
-
+    cartCtx.removeItem(id)
   }
 
   const cartItems = (
