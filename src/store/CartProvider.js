@@ -4,8 +4,21 @@ import { useReducer } from "react";
 
 const cartReducer = (state, action) => {
     if (action.type === 'ADD') {
-        const updatedItems = state.items.concat(action.item);
         const updateAmount = state.totalAmount + (action.item.amount * action.item.price);
+
+        let updatedItems = []
+
+        const existingItemIndex = state.items.findIndex(item => item.id === action.item.id)
+
+        if (existingItemIndex !== -1) {
+            let updatedItem = state.items[existingItemIndex]
+            updatedItem = { ...updatedItem, amount: updatedItem.amount + action.item.amount }
+            updatedItems = [...state.items];
+            updatedItems[existingItemIndex] = updatedItem
+        } else {
+            updatedItems = state.items.concat(action.item);
+        }
+
         return {
             items: updatedItems,
             totalAmount: updateAmount
