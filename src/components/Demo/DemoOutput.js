@@ -7,6 +7,4 @@ const DemoOutput = (props) => {
   return <MyParagraph>{props.show ? 'This is new!' : ''}</MyParagraph>;
 };
 
-// to avoid unnecessary re-evaluation just because parent's re-evaluation
-// we use React.memo. This avoid this component's re-evaluation as long as its props, state or context changes
 export default React.memo(DemoOutput);
