@@ -1,31 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
-import Button from './components/UI/Button/Button';
-import DemoOutput from './components/Demo/DemoOutput';
 import './App.css';
+import DemoList from './components/Demo/DemoList';
+import Button from './components/UI/Button/Button';
 
 function App() {
-  const [showParagraph, setShowParagraph] = useState(false);
-  const [allowToggle, setAllowToggle] = useState(false);
+  const [listTitle, setListTitle] = useState('My List');
 
-  console.log('APP RUNNING');
+  const changeTitleHandler = useCallback(() => {
+    setListTitle('New Title');
+  }, []);
 
-  const toggleParagraphHandler = useCallback(() => {
-    if (allowToggle) {
-      setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-    }
-  }, [allowToggle]); // this function updates when the dependency "allowToggle" changes
-
-  const allowToggleHandler = () => {
-    setAllowToggle(true);
-  };
+  // here also we are using useMemo to store initial value because same as function array also is reference value and it is changes in each reevaluation
+  // use callback is used to store function while useMemo is used to save the data like array
+  const listItems = useMemo(() => [5, 3, 1, 10, 9], []);
 
   return (
     <div className="app">
-      <h1>Hi there!</h1>
-      <DemoOutput show={showParagraph} />
-      <Button onClick={allowToggleHandler}>Allow Toggling</Button>
-      <Button onClick={toggleParagraphHandler}>Toggle Paragraph!</Button>
+      <DemoList title={listTitle} items={listItems} />
+      <Button onClick={changeTitleHandler}>Change List Title</Button>
     </div>
   );
 }
