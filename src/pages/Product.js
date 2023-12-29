@@ -11,15 +11,13 @@ function ProductPage() {
     <>
       <h1>This is product page</h1>
       Go to <Link to="/">Home Page</Link>
-      <p>
         <ul>
           {PRODUCT.map((prod) => (
-            <li>
-              <Link to={`/product/${prod.id}`}>{prod.title}</Link>
+            <li key={prod.id}>
+              <Link to={prod.id}>{prod.title}</Link>
             </li>
           ))}
         </ul>
-      </p>
     </>
   );
 }

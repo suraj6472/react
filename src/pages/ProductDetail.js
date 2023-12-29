@@ -8,7 +8,7 @@ function ProductDetailPage() {
       <h1>This is ProductDetail page</h1>
       <p>
         <h2>{params.productId}</h2>
-        Go to <Link to="/products">Product Page</Link>
+        Go to <Link to=".." relative="path">Product Page</Link>
       </p>
     </>
   );
