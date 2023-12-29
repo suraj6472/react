@@ -48,18 +48,3 @@ ul {
   margin: 0;
   padding: 0;
 }
-
-.list a {
-  text-decoration: none;
-  color: var(---color-primary-400);
-}
-
-.list a.active, .list:hover {
-  color: var(---color-primary-800);
-}
-
-
-main {
-  margin: 2rem auto;
-  text-align: center;
-}
