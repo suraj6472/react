@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     element: <RootPage />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "", element: <HomePage /> },
+      { index:true, element: <HomePage /> }, // index is used to specify index route alternatively use path=""
       { path: "products", element: <ProductPage /> },
       { path: "products/:productId", element: <ProductDetailPage /> },
     ],
