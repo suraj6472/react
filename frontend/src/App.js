@@ -30,10 +30,19 @@ function App() {
             { path: "new", element: <NewEventPage /> },
             {
               path: ":eventId",
-              element: <EventDetailPage />,
+              id: "event-detail",
               loader: eventDetailLoader,
+              children: [
+                {
+                  index: true,
+                  element: <EventDetailPage />,
+                },
+                {
+                  path: "edit",
+                  element: <EditEventPage />,
+                },
+              ],
             },
-            { path: ":eventId", element: <EditEventPage /> },
           ],
         },
       ],
