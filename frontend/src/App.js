@@ -3,6 +3,7 @@ import HomePage from "./pages/Home";
 import EditEventPage from "./pages/EditEvent";
 import EventDetailPage, {
   loader as eventDetailLoader,
+  action as eventDetailAction
 } from "./pages/EventDetail";
 import EventList, { loader as eventLoader } from "./pages/Events";
 import NewEventPage, {action as actionNewEvent} from "./pages/NewEvent";
@@ -36,6 +37,7 @@ function App() {
                 {
                   index: true,
                   element: <EventDetailPage />,
+                  action: eventDetailAction
                 },
                 {
                   path: "edit",
