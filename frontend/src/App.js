@@ -5,7 +5,7 @@ import EventDetailPage, {
   loader as eventDetailLoader,
 } from "./pages/EventDetail";
 import EventList, { loader as eventLoader } from "./pages/Events";
-import NewEventPage from "./pages/NewEvent";
+import NewEventPage, {action as actionNewEvent} from "./pages/NewEvent";
 import RootLayout from "./pages/Root";
 import EventLayout from "./pages/EventLayout";
 import ErrorPage from "./pages/Error";
@@ -27,7 +27,7 @@ function App() {
               element: <EventList />,
               loader: eventLoader,
             },
-            { path: "new", element: <NewEventPage /> },
+            { path: "new", element: <NewEventPage />, action: actionNewEvent },
             {
               path: ":eventId",
               id: "event-detail",
