@@ -22,6 +22,11 @@ export async function action({ request, params }) {
     body: JSON.stringify(eventData),
   });
 
+  if (response.status === 422) {
+    console.log(response.status);
+    return response;
+  }
+
   if (!response.ok) {
     throw json({ message: "Unable save data" }, 500);
   }
